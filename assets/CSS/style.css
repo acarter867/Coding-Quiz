@@ -9,23 +9,42 @@ header{
     justify-content: space-between;
     font-size: 15px;
 }
+
 header a{
     text-decoration: none;
     color: rgb(178, 64, 255);
 }
+
 header a:visited{
     color: rgb(178, 64, 255);
 }
+
 .quiz-start{
     display: flex;
     flex-direction: column;
     text-align: center;
 }
 
+.info-title{
+    font-size: 25px;
+    margin: 15px;
+}
+
+.info{
+    width: 75%;
+    margin: auto;
+}
+
 button{
-    background-color: rgb(145, 7, 145);
+    background-color: rgb(94, 6, 94);
     color: white;
-    border: none;
     padding: 10px;
+    border: none;
     border-radius: 7px;
+    margin: 5px;
+}
+
+button:hover{
+    cursor: pointer;
+    background-color: rgb(194, 78, 240);
 }
