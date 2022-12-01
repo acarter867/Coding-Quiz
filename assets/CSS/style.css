@@ -1,0 +1,31 @@
+*{
+    margin: 3px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+}
+header a{
+    text-decoration: none;
+    color: rgb(178, 64, 255);
+}
+header a:visited{
+    color: rgb(178, 64, 255);
+}
+.quiz-start{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+button{
+    background-color: rgb(145, 7, 145);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 7px;
+}
