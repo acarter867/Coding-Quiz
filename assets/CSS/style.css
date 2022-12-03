@@ -35,6 +35,13 @@ header a:visited{
     margin: auto;
 }
 
+#m-choice{
+    display: flex;
+    flex-direction: column;
+    width: 10%;
+    margin: auto;
+}
+
 button{
     background-color: rgb(94, 6, 94);
     color: white;
@@ -42,6 +49,15 @@ button{
     border: none;
     border-radius: 7px;
     margin: 5px;
+}
+
+.feedback{
+    width: 75%;
+    margin: auto;
+    color: rgb(173, 173, 173);
+    font-size: 25px;
+    border-top: 1px solid rgb(173, 173, 173);
+    text-decoration: wavy;
 }
 
 button:hover{

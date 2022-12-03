@@ -14,16 +14,16 @@
       <div class="high-score">
           <a class="view-scores" href="#">High Scores</a> 
       </div>
-    <div class="timer" id="timer">Time: 30</div>
+    <div class="timer" id="timer">Time: 75</div>
     </header>
     <div class="quiz-start">
       <div class="info-title"><span>Coding Quiz Challenge</span></div>
       <div class="info-list">
-        <div class="info">Try to answer the following code-related questions within the time limit. Keep in mind that 
+        <div class="info" id="question">Try to answer the following code-related questions within the time limit. Keep in mind that 
             incorrect answers will penalize your score/time by ten seconds!</div>
       </div>
-      <div class="buttons">
-        <button class="start" id="btn-start">Start Quiz</button>
+      <div class="buttons" id="m-choice">
+        <button class="start button" id="btn-start">Start Quiz</button>
       </div>
     </div>
     <div class="quiz-container">
@@ -39,12 +39,9 @@
     </div>
     <div class="results-container">
 
-      <div class="finish"><b>All done!</b></div>
+      <div class="feedback" id="question-result"><i>Incorrect!</i></div>
       <div class="final-score">
           <!-- JS goes here -->
-      </div>
-      <div class="buttons">
-          <button type="submit" class="submit">Submit Score</button>
       </div>
     </div>
 
