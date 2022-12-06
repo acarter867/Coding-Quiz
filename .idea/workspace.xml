@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="49be1274-ec99-4370-bbc9-1d5b2d22ab89" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Challenge 4.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/JavaScript/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/JavaScript/script.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -62,22 +59,16 @@
       <option name="presentableId" value="Default" />
       <updated>1670107201907</updated>
       <workItem from="1670107203690" duration="7390000" />
-      <workItem from="1670121736854" duration="481000" />
+      <workItem from="1670121736854" duration="4299000" />
+      <workItem from="1670127967957" duration="895000" />
+      <workItem from="1670198552733" duration="3069000" />
+      <workItem from="1670270806788" duration="637000" />
+      <workItem from="1670300815104" duration="1076000" />
+      <workItem from="1670323747721" duration="2529000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/assets/JavaScript/script.js</url>
-          <line>82</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
