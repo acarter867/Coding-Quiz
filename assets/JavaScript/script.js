@@ -7,16 +7,15 @@ qResult = document.getElementById('question-result');
 
 let initialTime = 75;
 qResult.hidden = true;
+let currentQuestion = 0;
 
 let questions = [
     {
-      number: 1,
       question: "Commonly used data types DO NOT include:",
       correctAnswer: "3. Alerts",
       answers: ["1. Strings", "2. Booleans", "3. Alerts", "4. Numbers"],
     },
     {
-      number: 2,
       question:
         "The condition in an if/else statement is enclosed with _________.",
       correctAnswer: "3. Parenthesis",
@@ -28,7 +27,6 @@ let questions = [
       ],
     },
     {
-      number: 3,
       question: "Arrays in JavaScript can be used to store ___________.",
       correctAnswer: "4. All of the above",
       answers: [
@@ -39,14 +37,12 @@ let questions = [
       ],
     },
     {
-      number: 4,
       question:
         "String values must be enclosed within _________ when being assigned to variables.",
       correctAnswer: "3. Quotes",
       answers: ["1. Commas", "2. Curly brackets", "3. Quotes", "4. Parenthesis"],
     },
     {
-      number: 5,
       question:
         "A very useful tool used during development and debugging for printing content to the debugger is:",
       correctAnswer: "4. Console.log",
@@ -63,70 +59,72 @@ btnStart.addEventListener('click', startQuiz);
 
 function startQuiz() {
   btnStart.removeEventListener('click', startQuiz);
-    setQuestions(0);
+  setButtons();
 
-    for(let i = 0; i < buttons.length; i++){
-      buttons[i].style.color = 'green';
-      buttons[i].style.backgroundColor = 'blue';
+  for(let i = 0; i < buttons.length; i++){
+    buttons[i].style.color = 'white';
+    buttons[i].style.backgroundColor = 'blue';
+  }
+
+  interval = setInterval(() => {
+  timer.innerHTML = "Time: " + --initialTime;
+  if(initialTime <= 0){
+      console.log("OUT OF TIME FUCK-O");
+      clearInterval(interval);
     }
-
-
-    interval = setInterval(() => {
-    timer.innerHTML = "Time: " + --initialTime;
-    if(initialTime <= 0){
-        console.log("OUT OF TIME FUCK-O");
-        clearInterval(interval);
-      }
-    }, 1000);  
-
+  }, 1000); 
 } 
 
-function setQuestions(qNum){
-  quizQuestion.innerHTML = questions[qNum].question;
-  if(btnClass.children.length < 4){
-    const mChoice = [document.createElement('button'), document.createElement('button'), document.createElement('button')];
-
-    for(let i = 0; i < mChoice.length; i++){
-      btnClass.appendChild(mChoice[i]);
-    }
+function setButtons(){
+  if(currentQuestion >= 4){
+    endQuiz();
   }
-  
-  for(let j = 0; j < btnClass.children.length; j++){
+    quizQuestion.innerHTML = questions[currentQuestion].question;
+    if(btnClass.children.length < 4) {
+      const mChoice = [document.createElement('button'), document.createElement('button'), document.createElement('button')];
+      for (let i = 0; i < mChoice.length; i++) {
+        btnClass.appendChild(mChoice[i]);
+      }
+    }
+
+    for(let j = 0; j < btnClass.children.length; j++){
     let currentBtn = btnClass.children[j];
-    currentBtn.innerHTML = questions[qNum].answers[j];
-    
+    currentBtn.innerHTML = questions[currentQuestion].answers[j];
+      
     currentBtn.addEventListener('mouseenter', (e) => {
       currentBtn.style.backgroundColor = 'red';
     });
     currentBtn.addEventListener('mouseleave', (e) => {
       currentBtn.style.backgroundColor = 'blue';
-    })
-      currentBtn.addEventListener('click', (e) => {
-      qResult.hidden = false;
-      console.log("asdf");
-      checkQuesion(qNum, currentBtn.innerHTML);
-    })
-   
-
-  }
-}
-
-function checkQuesion(qNum, answer){
-  if(answer === questions[qNum].correctAnswer){
-    qResult.innerHTML = 'Correct!'    
-  }else{
-    qResult.innerHTML = 'Incorrect!'
-    console.log('hmm');
-    initialTime -= 10;
+    });      
+      currentBtn.addEventListener('click', updateButtons);
+    }
   }
 
-  if(qNum < questions.length - 1){
-    setQuestions(qNum + 1);
-  }else{
-    endQuiz();
+  function updateButtons(){
+    qResult.hidden = false;
+    let userAnswer = this.innerHTML;
+    if(userAnswer === questions[currentQuestion].correctAnswer){      
+      qResult.innerHTML = "Correct!";
+    }else{
+      initialTime -= 10;
+      qResult.innerHTML = "Incorrect!";
+    }
+    for(let i = 0; i < btnClass.children.length; i++){
+      btnClass.children[i].innerHTML = questions[currentQuestion].question;      
+    }
+    if(currentQuestion <= questions.length){
+      currentQuestion++;
+      setButtons();
+    }else{
+      endQuiz();
+    }    
   }
-}
+
 
 function endQuiz(){
-  quizQuestion.innerHTML = "QUIZ OVER";
-}
+    quizQuestion.innerHTML = "QUIZ OVER";
+    while(btnClass.firstChild){
+      btnClass.removeChild(btnClass.firstChild);
+    }
+  }
