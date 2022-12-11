@@ -30,6 +30,12 @@ header a:visited{
     margin: 15px;
 }
 
+.initials-text{
+    display: flex;
+    justify-content: center;
+    font-size: 25px;
+}
+
 .info{
     width: 75%;
     margin: auto;
