@@ -3,17 +3,26 @@ timer = document.getElementById('timer'),
 buttons = document.getElementsByTagName('button'),
 btnClass = document.getElementById('m-choice'),
 quizQuestion = document.getElementById('question'),
-qResult = document.getElementById('question-result');
+qResult = document.getElementById('question-result'),
+subText = document.getElementById('subtext'),
+submitScore = document.getElementById('initials-text'),
+btnSubmit = document.getElementById('submit-score'),
+initials = document.getElementById('txt-score');
 
-let initialTime = 75;
 qResult.hidden = true;
+submitScore.style.display = 'none';
+let initialTime = 75;
+let endOfQuiz = false;
 let currentQuestion = 0;
 
 let questions = [
     {
       question: "Commonly used data types DO NOT include:",
       correctAnswer: "3. Alerts",
-      answers: ["1. Strings", "2. Booleans", "3. Alerts", "4. Numbers"],
+      answers: ["1. Strings", 
+      "2. Booleans", 
+      "3. Alerts", 
+      "4. Numbers"]
     },
     {
       question:
@@ -23,8 +32,7 @@ let questions = [
         "1. Quotes",
         "2. Curly brackets",
         "3. Parenthesis",
-        "4. Square brackets",
-      ],
+        "4. Square brackets"]
     },
     {
       question: "Arrays in JavaScript can be used to store ___________.",
@@ -33,14 +41,16 @@ let questions = [
         "1. Numbers and strings",
         "2. Other Arrays",
         "3. Booleans",
-        "4. All of the above",
-      ],
+        "4. All of the above"]
     },
     {
       question:
         "String values must be enclosed within _________ when being assigned to variables.",
       correctAnswer: "3. Quotes",
-      answers: ["1. Commas", "2. Curly brackets", "3. Quotes", "4. Parenthesis"],
+      answers: ["1. Commas", 
+      "2. Curly brackets", 
+      "3. Quotes", 
+      "4. Parenthesis"]
     },
     {
       question:
@@ -50,14 +60,14 @@ let questions = [
         "1. Javascript",
         "2. Terminal/bash",
         "3. For loops",
-        "4. Console.log",
-      ],
+        "4. Console.log"]
     },
   ];
 
 btnStart.addEventListener('click', startQuiz);
 
 function startQuiz() {
+  subText.hidden = true;
   btnStart.removeEventListener('click', startQuiz);
   setButtons();
 
@@ -66,18 +76,18 @@ function startQuiz() {
     buttons[i].style.backgroundColor = 'blue';
   }
 
-  interval = setInterval(() => {
-  timer.innerHTML = "Time: " + --initialTime;
-  if(initialTime <= 0){
-      console.log("OUT OF TIME FUCK-O");
+  let interval = setInterval(() => {
+    timer.innerHTML = "Time: " + --initialTime;
+    if (initialTime <= 0 || endOfQuiz) {
       clearInterval(interval);
     }
   }, 1000); 
-} 
+}
 
 function setButtons(){
-  if(currentQuestion >= 4){
+  if(currentQuestion >= 5){
     endQuiz();
+    return;
   }
     quizQuestion.innerHTML = questions[currentQuestion].question;
     if(btnClass.children.length < 4) {
@@ -90,13 +100,13 @@ function setButtons(){
     for(let j = 0; j < btnClass.children.length; j++){
     let currentBtn = btnClass.children[j];
     currentBtn.innerHTML = questions[currentQuestion].answers[j];
-      
+
     currentBtn.addEventListener('mouseenter', (e) => {
       currentBtn.style.backgroundColor = 'red';
     });
     currentBtn.addEventListener('mouseleave', (e) => {
       currentBtn.style.backgroundColor = 'blue';
-    });      
+    });
       currentBtn.addEventListener('click', updateButtons);
     }
   }
@@ -111,20 +121,39 @@ function setButtons(){
       qResult.innerHTML = "Incorrect!";
     }
     for(let i = 0; i < btnClass.children.length; i++){
-      btnClass.children[i].innerHTML = questions[currentQuestion].question;      
+      btnClass.children[i].innerHTML = questions[currentQuestion].answers[i];
     }
-    if(currentQuestion <= questions.length){
-      currentQuestion++;
-      setButtons();
-    }else{
-      endQuiz();
-    }    
+    currentQuestion++;
+    setButtons();
   }
 
-
 function endQuiz(){
-    quizQuestion.innerHTML = "QUIZ OVER";
+  endOfQuiz = true;
+  subText.hidden = false;
+  submitScore.style.display = 'flex';
+  subText.innerHTML = "Your final score is: " + initialTime;
+    console.log(questions.length);
+    quizQuestion.innerHTML = "All Done!";
     while(btnClass.firstChild){
       btnClass.removeChild(btnClass.firstChild);
     }
   }
+
+  btnSubmit.addEventListener('click', function(){
+    quizQuestion.innerHTML = "High Score";
+    let score = initialTime;
+    let name = initials.value;
+    let currentHigh = JSON.parse(localStorage.getItem('hScore'));
+    subText.hidden = true;
+    
+    if(score > currentHigh.score){
+      const entry = {
+      initials: name,
+      score: score
+    };
+      let submission = JSON.stringify(entry);
+      localStorage.setItem('hScore', submission);
+    }
+
+    
+  });

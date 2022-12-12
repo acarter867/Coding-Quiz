@@ -17,10 +17,15 @@
     <div class="timer" id="timer">Time: 75</div>
     </header>
     <div class="quiz-start">
-      <div class="info-title"><span>Coding Quiz Challenge</span></div>
+      <div class="info-title"><span id="question">Coding Quiz Challenge</span></div>
       <div class="info-list">
-        <div class="info" id="question">Try to answer the following code-related questions within the time limit. Keep in mind that 
+        <div class="info" id="subtext">Try to answer the following code-related questions within the time limit. Keep in mind that
             incorrect answers will penalize your score/time by ten seconds!</div>
+      </div>
+      <div class="initials-text" id="initials-text">
+        <h3 id="name">Enter initials: </h3>
+        <input id="txt-score"></input>
+        <button id="submit-score">Submit</button>
       </div>
       <div class="buttons" id="m-choice">
         <button class="start button" id="btn-start">Start Quiz</button>
