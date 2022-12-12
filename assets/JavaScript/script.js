@@ -7,7 +7,8 @@ qResult = document.getElementById('question-result'),
 subText = document.getElementById('subtext'),
 submitScore = document.getElementById('initials-text'),
 btnSubmit = document.getElementById('submit-score'),
-initials = document.getElementById('txt-score');
+initials = document.getElementById('txt-score'),
+lblName = document.getElementById('name');
 
 qResult.hidden = true;
 submitScore.style.display = 'none';
@@ -131,7 +132,7 @@ function endQuiz(){
   endOfQuiz = true;
   subText.hidden = false;
   submitScore.style.display = 'flex';
-  subText.innerHTML = "Your final score is: " + initialTime;
+  subText.innerHTML = "Your final score is: " + (initialTime - 1);
     console.log(questions.length);
     quizQuestion.innerHTML = "All Done!";
     while(btnClass.firstChild){
@@ -141,19 +142,51 @@ function endQuiz(){
 
   btnSubmit.addEventListener('click', function(){
     quizQuestion.innerHTML = "High Score";
-    let score = initialTime;
-    let name = initials.value;
+    let pScore = initialTime;
+    console.log("score: " + pScore);
+    let pName = initials.value;
     let currentHigh = JSON.parse(localStorage.getItem('hScore'));
     subText.hidden = true;
+    lblName.hidden = true;
     
-    if(score > currentHigh.score){
+    if(currentHigh.score == null){
       const entry = {
-      initials: name,
-      score: score
+      initials: pName,
+      score: pScore
     };
       let submission = JSON.stringify(entry);
       localStorage.setItem('hScore', submission);
     }
 
+    currentHigh = JSON.parse(localStorage.getItem('hScore'));
+
+
+    const newButton = document.createElement('button');
+    newButton.setAttribute('id', 'clearScores');
+
+    newButton.addEventListener('mouseenter', () => {
+      newButton.style.backgroundColor = 'red';
+    });
+    newButton.addEventListener('mouseleave', () => {
+      newButton.style.backgroundColor = 'blue';
+    });
+
+    newButton.textContent = 'Clear High Score';
+    submitScore.appendChild(newButton);
+
+    //formatScoreBtns();
     
   });
+
+  function formatScoreBtns(){
+    btnSubmit.textContent = 'Go back';
+    const newButton = document.getElementById('clearScores');
+    btnSubmit.addEventListener('click', (e) => {
+      console.log("no new button");
+    });
+
+    newButton.addEventListener('click', () => {
+      localStorage.clear();
+      console.log('High Score Cleared');
+    });
+  }
