@@ -146,10 +146,11 @@ function endQuiz(){
     console.log("score: " + pScore);
     let pName = initials.value;
     let currentHigh = JSON.parse(localStorage.getItem('hScore'));
+    console.log(currentHigh);
     subText.hidden = true;
     lblName.hidden = true;
     
-    if(currentHigh.score == null){
+    if(currentHigh == null || currentHigh.score < pScore){
       const entry = {
       initials: pName,
       score: pScore
@@ -160,21 +161,33 @@ function endQuiz(){
 
     currentHigh = JSON.parse(localStorage.getItem('hScore'));
 
+    initials.value = "1. " + currentHigh.initials + "-" + currentHigh.score;
 
-    const newButton = document.createElement('button');
-    newButton.setAttribute('id', 'clearScores');
-
-    newButton.addEventListener('mouseenter', () => {
-      newButton.style.backgroundColor = 'red';
-    });
-    newButton.addEventListener('mouseleave', () => {
+    if(submitScore.children.length < 4){
+      const newButton = document.createElement('button');
+      newButton.setAttribute('id', 'clearScores');
+      submitScore.appendChild(newButton);
+      newButton.textContent = 'Clear High Score'
       newButton.style.backgroundColor = 'blue';
-    });
 
-    newButton.textContent = 'Clear High Score';
-    submitScore.appendChild(newButton);
+      newButton.addEventListener('mouseenter', () => {
+        newButton.style.backgroundColor = 'red';
+      });
+      newButton.addEventListener('mouseleave', () => {
+        newButton.style.backgroundColor = 'blue';
+      });
 
-    //formatScoreBtns();
+      btnSubmit.addEventListener('mouseenter', () => {
+        btnSubmit.style.backgroundColor = 'red';
+      });
+      btnSubmit.addEventListener('mouseleave', () => {
+        btnSubmit.style.backgroundColor = 'blue';
+      });
+
+    }
+
+    console.log(submitScore.children.length);
+    formatScoreBtns();
     
   });
 
@@ -182,11 +195,12 @@ function endQuiz(){
     btnSubmit.textContent = 'Go back';
     const newButton = document.getElementById('clearScores');
     btnSubmit.addEventListener('click', (e) => {
-      console.log("no new button");
+      location.reload();
     });
 
     newButton.addEventListener('click', () => {
       localStorage.clear();
+      initials.value = " ";
       console.log('High Score Cleared');
     });
   }
