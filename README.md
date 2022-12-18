@@ -16,4 +16,4 @@ Please refer to the LICENSE file of this repository.
 <a href="https://acarter867.github.io/Coding-Quiz/">Visit my Password Generator!</a>
 
 ## Preview:
-<img src="./assets/photos/acarter867.Project-Preview.png" alt="Coding Quiz Preview">
+<img src="/assets/Photos/Project-Preview.png" alt="Coding Quiz Preview">
