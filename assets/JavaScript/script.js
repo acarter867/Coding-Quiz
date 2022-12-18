@@ -6,15 +6,21 @@ quizQuestion = document.getElementById('question'),
 qResult = document.getElementById('question-result'),
 subText = document.getElementById('subtext'),
 submitScore = document.getElementById('initials-text'),
+buttonsDiv = document.getElementById('post-quiz-buttons');
 btnSubmit = document.getElementById('submit-score'),
 initials = document.getElementById('txt-score'),
-lblName = document.getElementById('name');
+lblName = document.getElementById('name'),
+scoresLink = document.getElementById('view-scores'),
+scoresList = document.getElementById('scores'),
+quizWindow = document.getElementById('quiz-start');
 
 qResult.hidden = true;
 submitScore.style.display = 'none';
-let initialTime = 75;
+let initialTime = 20;
 let endOfQuiz = false;
 let currentQuestion = 0;
+
+let dontRepeat = true;
 
 let questions = [
     {
@@ -65,9 +71,19 @@ let questions = [
     },
   ];
 
+scoresLink.addEventListener('click', showScores);
+
 btnStart.addEventListener('click', startQuiz);
 
 function startQuiz() {
+  quizWindow.style.marginLeft = '20%'
+  quizWindow.style.justifyContent = 'left';
+  quizWindow.style.textAlign = 'left'
+  btnClass.style.marginLeft = '0%';
+  scoresLink.removeEventListener('click', showScores);
+  scoresLink.addEventListener('click', function (){
+    alert('Finish quiz to view high scores!');
+  });
   subText.hidden = true;
   btnStart.removeEventListener('click', startQuiz);
   setButtons();
@@ -80,6 +96,9 @@ function startQuiz() {
   let interval = setInterval(() => {
     timer.innerHTML = "Time: " + --initialTime;
     if (initialTime <= 0 || endOfQuiz) {
+      if(initialTime <= 0){
+        endQuiz();
+      }
       clearInterval(interval);
     }
   }, 1000); 
@@ -141,66 +160,113 @@ function endQuiz(){
   }
 
   btnSubmit.addEventListener('click', function(){
-    quizQuestion.innerHTML = "High Score";
     let pScore = initialTime;
-    console.log("score: " + pScore);
     let pName = initials.value;
-    let currentHigh = JSON.parse(localStorage.getItem('hScore'));
-    console.log(currentHigh);
-    subText.hidden = true;
-    lblName.hidden = true;
-    
-    if(currentHigh == null || currentHigh.score < pScore){
+
+    let localStorageScores = JSON.parse(localStorage.getItem('entries'));
+
       const entry = {
       initials: pName,
       score: pScore
     };
-      let submission = JSON.stringify(entry);
-      localStorage.setItem('hScore', submission);
+    if(dontRepeat && entry.score < 75){
+      if(localStorageScores != null){
+        localStorageScores.push(entry);
+        let submission = JSON.stringify(localStorageScores);
+        console.log("submission: " + submission);
+        localStorage.setItem('entries', submission);
+      }else{
+        let firstSub = [entry];
+        localStorage.setItem('entries', JSON.stringify(firstSub));
+      }
     }
 
-    currentHigh = JSON.parse(localStorage.getItem('hScore'));
+    dontRepeat = false;
 
-    initials.value = "1. " + currentHigh.initials + "-" + currentHigh.score;
-
-    if(submitScore.children.length < 4){
-      const newButton = document.createElement('button');
-      newButton.setAttribute('id', 'clearScores');
-      submitScore.appendChild(newButton);
-      newButton.textContent = 'Clear High Score'
-      newButton.style.backgroundColor = 'blue';
-
-      newButton.addEventListener('mouseenter', () => {
-        newButton.style.backgroundColor = 'red';
-      });
-      newButton.addEventListener('mouseleave', () => {
-        newButton.style.backgroundColor = 'blue';
-      });
-
-      btnSubmit.addEventListener('mouseenter', () => {
-        btnSubmit.style.backgroundColor = 'red';
-      });
-      btnSubmit.addEventListener('mouseleave', () => {
-        btnSubmit.style.backgroundColor = 'blue';
-      });
-
-    }
-
-    console.log(submitScore.children.length);
+    showScores();
     formatScoreBtns();
-    
   });
+
+
+
+function showScores(){
+  btnSubmit.style.backgroundColor = 'blue';
+  scoresLink.removeEventListener('click', showScores);
+  quizQuestion.innerHTML = "High Scores";
+  quizWindow.style.marginLeft = '20%'
+  quizWindow.style.marginRight = '20%';
+  quizWindow.style.justifyContent = 'left';
+  quizWindow.style.textAlign = 'left'
+  btnClass.style.marginLeft = '0%';
+
+  subText.hidden = true;
+  lblName.hidden = true;
+  initials.hidden = true;
+  btnStart.hidden = true;
+
+  if(submitScore.children.length < 4){
+    const newButton = document.createElement('button');
+    newButton.setAttribute('id', 'clearScores');
+    buttonsDiv.appendChild(newButton);
+    newButton.textContent = 'Clear Scores'
+    newButton.style.backgroundColor = 'blue';
+
+    newButton.addEventListener('mouseenter', () => {
+      newButton.style.backgroundColor = 'red';
+    });
+    newButton.addEventListener('mouseleave', () => {
+      newButton.style.backgroundColor = 'blue';
+    });
+
+    btnSubmit.addEventListener('mouseenter', () => {
+      btnSubmit.style.backgroundColor = 'red';
+    });
+    btnSubmit.addEventListener('mouseleave', () => {
+      btnSubmit.style.backgroundColor = 'blue';
+    });
+
+    let allEntries = JSON.parse(localStorage.getItem('entries'));
+    allEntries.sort((a, b) => {
+      return b.score - a.score;
+    });
+
+
+    submitScore.style.display = 'flex';
+    submitScore.style.flexDirection = 'column';
+    for(let i = 0; i < allEntries.length; i++){
+      let listItem = document.createElement('li');
+      listItem.textContent = allEntries[i].initials + '-' + allEntries[i].score;
+      if(i % 2 === 0){
+        listItem.style.backgroundColor = 'lightgray';
+      }
+      scoresList.appendChild(listItem);
+
+      listItem.style.textAlign = 'left';
+      listItem.style.paddingLeft = '10px';
+    }
+    console.log(allEntries);
+
+    btnSubmit.textContent = 'Go back';
+    btnSubmit.addEventListener('click', () => {
+      scoresLink.addEventListener('click', showScores);
+      location.reload();
+      dontRepeat = true;
+    });
+  }
+}
 
   function formatScoreBtns(){
     btnSubmit.textContent = 'Go back';
     const newButton = document.getElementById('clearScores');
-    btnSubmit.addEventListener('click', (e) => {
+    btnSubmit.addEventListener('click', () => {
       location.reload();
+      dontRepeat = true;
     });
 
     newButton.addEventListener('click', () => {
       localStorage.clear();
       initials.value = " ";
-      console.log('High Score Cleared');
+      scoresList.hidden = true;
+      quizQuestion.textContent = 'High Scores Cleared!';
     });
   }
