@@ -12,6 +12,7 @@ header{
 
 header a{
     text-decoration: none;
+    cursor: pointer;
     color: rgb(178, 64, 255);
 }
 
@@ -23,22 +24,21 @@ header a:visited{
     display: flex;
     flex-direction: column;
     text-align: center;
+    justify-content: center;
 }
+
 
 .info-title{
     font-size: 25px;
-    margin: 15px;
 }
 
 .initials-text{
     display: flex;
-    justify-content: center;
+    justify-content: left;
     font-size: 25px;
 }
 
 .info{
-    width: 75%;
-    margin: auto;
 }
 
 #m-choice{
@@ -55,11 +55,12 @@ button{
     border: none;
     border-radius: 7px;
     margin: 5px;
+    width: 12vw;
 }
 
 .feedback{
     width: 75%;
-    margin: auto;
+    margin-left: 20%;
     color: rgb(173, 173, 173);
     font-size: 25px;
     border-top: 1px solid rgb(173, 173, 173);

@@ -12,11 +12,11 @@
   <body>
     <header>
       <div class="high-score">
-          <a class="view-scores" href="#">High Scores</a> 
+          <a class="view-scores" id="view-scores">High Scores</a> 
       </div>
     <div class="timer" id="timer">Time: 75</div>
     </header>
-    <div class="quiz-start">
+    <div class="quiz-start" id="quiz-start">
       <div class="info-title"><span id="question">Coding Quiz Challenge</span></div>
       <div class="info-list">
         <div class="info" id="subtext">Try to answer the following code-related questions within the time limit. Keep in mind that
@@ -24,8 +24,17 @@
       </div>
       <div class="initials-text" id="initials-text">
         <h3 id="name">Enter initials: </h3>
-        <input id="txt-score"></input>
-        <button id="submit-score">Submit</button>
+        <div id="ioField">
+          <input id="txt-score"></input>
+          <ol id="scores">
+
+          </ol>
+        </div>
+
+        <div id="post-quiz-buttons">
+          <button id="submit-score">Submit</button>
+        </div>
+
       </div>
       <div class="buttons" id="m-choice">
         <button class="start button" id="btn-start">Start Quiz</button>
