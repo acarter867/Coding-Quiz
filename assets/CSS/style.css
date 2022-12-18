@@ -1,15 +1,19 @@
+/* default global styling */
 *{
     margin: 3px;
     padding: 0;
     box-sizing: border-box;
 }
 
+
+/* header styling */
 header{
     display: flex;
     justify-content: space-between;
     font-size: 15px;
 }
 
+/* header links styling */
 header a{
     text-decoration: none;
     cursor: pointer;
@@ -20,6 +24,7 @@ header a:visited{
     color: rgb(178, 64, 255);
 }
 
+/* starting quiz styling */ 
 .quiz-start{
     display: flex;
     flex-direction: column;
@@ -32,15 +37,14 @@ header a:visited{
     font-size: 25px;
 }
 
+/* score submission styling */ 
 .initials-text{
     display: flex;
     justify-content: left;
     font-size: 25px;
 }
 
-.info{
-}
-
+/* styling for quiz buttons */
 #m-choice{
     display: flex;
     flex-direction: column;
@@ -48,6 +52,7 @@ header a:visited{
     margin: auto;
 }
 
+/* default styling for buttons */
 button{
     background-color: rgb(94, 6, 94);
     color: white;
@@ -58,6 +63,7 @@ button{
     width: 12vw;
 }
 
+/* styling for feedback div*/
 .feedback{
     width: 75%;
     margin-left: 20%;
@@ -67,6 +73,7 @@ button{
     text-decoration: wavy;
 }
 
+/* cursor styling for buttons */ 
 button:hover{
     cursor: pointer;
     background-color: rgb(194, 78, 240);
