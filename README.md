@@ -13,7 +13,7 @@ N/A
 Please refer to the LICENSE file of this repository.
 
 ## Deployed Page: 
-<a href="https://acarter867.github.io/Coding-Quiz/">Visit my Password Generator!</a>
+<a href="https://acarter867.github.io/Coding-Quiz/">Visit my Coding Quiz!</a>
 
 ## Preview:
 <img src="/assets/Photos/Project-Preview.png" alt="Coding Quiz Preview">
